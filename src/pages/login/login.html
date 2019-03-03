@@ -1,0 +1,20 @@
+<ion-content class="mainContent" padding>
+  <h2 class="title">Inicio de sesión</h2>
+  <form (submit)="doLogin(email,pass)">
+    <ion-item class="mainContent">
+      <ion-label stacked>Email de usuario</ion-label>
+      <ion-input [(ngModel)]="email" name="email" type="text" placeholder="Introduzca email de usuario" ></ion-input>
+    </ion-item>
+    <ion-item class="mainContent">
+      <ion-label stacked>Contraseña</ion-label>
+      <ion-input [(ngModel)]="pass" name="pass" type="password" placeholder="Introduzca contraseña"></ion-input>
+    </ion-item>
+    <button id="button" ion-button block type="submit">
+      Iniciar
+    </button>
+  </form>
+  <form id="changeLink" (submit)="changePass()">
+    <a><button id="link" type="submit">Cambiar contraseña</button></a>
+  </form>
+
+</ion-content>

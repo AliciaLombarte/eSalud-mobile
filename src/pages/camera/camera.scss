@@ -1,0 +1,16 @@
+page-camera {
+    .block {
+        position: relative;
+        .deleteIcon {
+          position: absolute !important;
+          color: #ff0000 !important;
+          border-color: #000000 !important;
+          margin-left: 88% !important;
+          margin-top: 3px !important;
+        }
+        .deleteIcon:before {
+          font-size: 25px !important;
+        }
+    }
+}
+

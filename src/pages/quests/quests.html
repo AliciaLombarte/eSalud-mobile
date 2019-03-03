@@ -1,0 +1,29 @@
+<ion-header>
+
+  <ion-navbar>
+    <br>
+    <ion-title>Actividades: <ion-datetime displayFormat="DD de MMMM de YYYY" [(ngModel)]="myDate"></ion-datetime></ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+     
+    <ion-item *ngIf="seguimiento == 400">
+      <p>Actividad prioritaria:</p>
+      <br>
+      <button ion-button full default (click)="woundTracking()"> Seguimiento herida</button>
+      <br>
+    </ion-item>
+    
+    <ion-item *ngIf="seguimiento != 201">
+        <p>Cuestionarios pendientes:</p>
+        <br>
+        <button ion-button full default (click)="goQuestionnaire()">
+          <ion-icon></ion-icon> Cuestionario Oswestry
+        </button>
+    </ion-item>
+
+    <ion-label *ngIf="seguimiento == 201"> No hay actividades para realizar</ion-label>
+
+</ion-content>

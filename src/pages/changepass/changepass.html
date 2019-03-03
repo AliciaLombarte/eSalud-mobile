@@ -1,0 +1,23 @@
+
+<ion-content padding>
+
+  <h2 class="title">Cambio de contraseña</h2>
+  <form (submit)="changePass(originalPass,newPass,newPass2)">
+    <ion-item>
+      <ion-label stacked>Contraseña original</ion-label>
+      <ion-input [(ngModel)]="originalPass" name="originalPass" type="password" placeholder="Introduzca contraseña original" ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>Nueva contraseña</ion-label>
+      <ion-input [(ngModel)]="newPass" name="newPass" type="password" placeholder="Introduzca nueva contraseña"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>Repita nueva contraseña</ion-label>
+      <ion-input [(ngModel)]="newPass2" name="newPass2" type="password" placeholder="Repita la nueva contraseña"></ion-input>
+    </ion-item>
+    <button id="button" ion-button block type="submit">
+      Cambiar contraseña
+    </button>
+  </form>
+
+</ion-content>

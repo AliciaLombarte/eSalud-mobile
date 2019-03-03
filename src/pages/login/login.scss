@@ -1,0 +1,26 @@
+.ios, .md {
+    page-login {
+        .mainContent{
+            margin: 0; height: 100%; overflow: hidden;
+        }
+        .title {
+            align-content: center;
+            text-align: center;
+            margin-top: 25%;
+        }
+        #button{
+            margin-top: 5%;
+        }
+        #changeLink{
+            margin-top: 8%;
+            text-align: center;
+            
+        }
+        #link{
+            color: blue;
+            text-decoration: underline;
+            font-size: 110%;
+        }
+    }
+
+}

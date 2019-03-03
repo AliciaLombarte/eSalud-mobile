@@ -1,0 +1,47 @@
+.ios, .md {
+ 
+    page-questionnaire {
+    
+        ion-slide {
+            align-items: flex-start;
+        }
+    
+        ion-item {
+            margin-bottom: 5px;
+            font-size: 1.2em;
+        }
+    
+        .start-slide {
+            justify-content: center;
+            align-items: center;
+    
+            button {
+                font-size: 1em;
+                font-weight: bold;
+            }
+        }
+
+        .finish-slide {
+            justify-content: center;
+            align-items: center;
+    
+            button {
+                font-size: 1em;
+                font-weight: bold;
+            }
+        }
+
+        .answers{
+            font-size: 0.65em;
+            height: 2.8em;
+            margin-bottom: 0%;
+        }
+
+        .botonCuestionario{
+            margin-top: 2em;
+        }
+    
+    }
+    
+}
+
