@@ -3,13 +3,15 @@
   <ion-navbar>
     <br>
     <ion-title>Actividades: <ion-datetime displayFormat="DD de MMMM de YYYY" [(ngModel)]="myDate"></ion-datetime></ion-title>
+    <button ion-button (click)= "logout()">
+        <ion-icon name="log-out"> Logout</ion-icon>
+      </button>
   </ion-navbar>
 
 </ion-header>
 
 <ion-content padding>
-     
-    <ion-item *ngIf="seguimiento == 400">
+  <ion-item *ngIf="seguimiento == 400">
       <p>Actividad prioritaria:</p>
       <br>
       <button ion-button full default (click)="woundTracking()"> Seguimiento herida</button>

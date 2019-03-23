@@ -21,11 +21,9 @@ export class LoginPage {
     this.showLoader();
     this.loginData.email = email;
     this.loginData.pass = pass;
-    setTimeout(() => {
     this.authService.login(this.loginData)
     .then(data => {
       this.data = data;
-      this.loading.dismiss();
       if(this.data._body=="{\"result\":200,\"listUsers\":null}"){
         localStorage.setItem('email', email);
         this.navCtrl.setRoot(QuestsPage);
@@ -38,10 +36,8 @@ export class LoginPage {
     (error) => {
       console.log(error);
       this.presentToastError("Error en inicio de sesión. Sin conexión.");
-    }
-    );
-    }, 5000);
-    this.loading.dismiss();
+    });
+   // this.loading.dismiss();
     this.navCtrl.setRoot(LoginPage);
   }
 

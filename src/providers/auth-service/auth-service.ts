@@ -15,7 +15,6 @@ export class AuthService {
   constructor(public http: Http) {}
 
   login(loginData) {
-    
     return new Promise((resolve, reject) => {
       let headers = new Headers();
       headers.append('Content-Type', 'application/json');
@@ -26,6 +25,20 @@ export class AuthService {
         reject(err);
       });
     });
+  }
+
+  logout(){
+    console.log('AuthService logout');
+    return new Promise((resolve, reject) => {
+    let headers = new Headers();
+    headers.append('X-Auth-Token', localStorage.getItem('token'));
+    this.http.post(apiUrl+'logout', {}, {headers: headers})
+        .subscribe(res => {
+          resolve(res);
+        }, (err) => {
+          reject(err);
+      }); 
+    }); 
   }
 
   postInfo(userData){
@@ -108,22 +121,5 @@ export class AuthService {
           });
     });
   }
- 
-  logout(){
-    return new Promise((resolve, reject) => {
-        let headers = new Headers();
-        headers.append('X-Auth-Token', localStorage.getItem('token'));
-        localStorage.clear();
-       
-        this.http.post(apiUrl+'logout', {}, {headers: headers})
-          .subscribe(res => {
-            
-          }, (err) => {
-            reject(err);
-          });
-       
-    }); 
-  }*/
-
+ */
 }
-
