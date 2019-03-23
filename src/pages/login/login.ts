@@ -34,10 +34,14 @@ export class LoginPage {
         this.presentToastError("Error en inicio de sesión. Usuario y/o contraseña no válido(s).");
         this.navCtrl.setRoot(LoginPage);
       }
-    });
-    }, 2000);
+    },
+    (error) => {
+      console.log(error);
+      this.presentToastError("Error en inicio de sesión. Sin conexión.");
+    }
+    );
+    }, 5000);
     this.loading.dismiss();
-    this.presentToastError("Error en inicio de sesión. Sin conexión.");
     this.navCtrl.setRoot(LoginPage);
   }
 
