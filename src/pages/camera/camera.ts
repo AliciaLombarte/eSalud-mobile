@@ -3,7 +3,7 @@ import { NavController, AlertController, ActionSheetController, ToastController,
 import { File } from '@ionic-native/file';
 import { Transfer, TransferObject, FileUploadOptions } from '@ionic-native/transfer';
 import { FilePath } from '@ionic-native/file-path';
-import { Camera, CameraOptions } from '@ionic-native/camera';
+import { Camera, CameraOptions, MediaType } from '@ionic-native/camera';
 
 import { QuestsPage } from '../quests/quests';
 import { AuthService } from '../../providers/auth-service/auth-service';
@@ -31,10 +31,60 @@ export class CameraPage {
 
   imageURI:any;
   imageFileName:any;
-
+  
   constructor(public navCtrl: NavController, private camera: Camera, private transfer: Transfer, private file: File, 
     private filePath: FilePath, public actionSheetCtrl: ActionSheetController, public toastCtrl: ToastController, 
-    public platform: Platform, public loadingCtrl: LoadingController, private alertCtrl: AlertController, public authService: AuthService) { }
+    public platform: Platform, public loadingCtrl: LoadingController, private alertCtrl: AlertController, 
+    public authService: AuthService, ) { }
+
+  openCamera(){
+    console.log("open camera");
+    const options : CameraOptions = {
+      quality : 100,
+      destinationType : this.camera.DestinationType.DATA_URL,
+      encodingType : this.camera.EncodingType.JPEG,
+      mediaType : this.camera.MediaType.PICTURE
+    }
+
+    this.camera.getPicture(options).then((ImageData) => {
+      this.base64Image = 'data:Image/jpeg;base64,' + ImageData;
+    }, (err) => {
+      console.log(err);
+    });
+  }
+
+  openGallery(){
+    console.log("open gallery");
+
+    const options : CameraOptions = {
+      quality : 100,
+      destinationType : this.camera.DestinationType.DATA_URL,
+      encodingType : this.camera.EncodingType.JPEG,
+      mediaType : this.camera.MediaType.PICTURE,
+      sourceType : this.camera.PictureSourceType.PHOTOLIBRARY
+    }
+    this.camera.getPicture(options).then((ImageData) => {
+      this.base64Image = 'data:Image/jpeg;base64,' + ImageData;
+    }, (err) => {
+      console.log(err);
+    });
+  }
+  uploadImage(){
+    console.log("uploadImage from gallery");
+    this.authService.uploadImage(this.base64Image)
+    .then(data => {
+      this.data = data;
+      if(this.data._body=="{\"result\":200,\"listUsers\":null}"){
+        this.presentToast("¡Inicio de sesión correcto! uploadImage");
+      } else{
+        this.presentToastError("Error en inicio de sesión. Usuario y/o contraseña no válido(s). uploadImage");
+      }
+    },
+    (error) => {
+      console.log(error);
+      this.presentToastError("Error en inicio de sesión. Sin conexión. uploadImage");
+    });
+  }
 
   ngOnInit() {
     this.photos = [];
@@ -71,18 +121,14 @@ export class CameraPage {
     this.userData.dolorPierna = dolorPierna;
     this.userData.dolorEspalda = dolorEspalda;
     this.userData.temperatura = temperatura;
+    this.userData.photo = this.base64Image;
     this.userData.emailUser= localStorage.getItem("email");
-
-    //this.uploadImage();
 
     this.authService.postInfo(this.userData).then((result) => {
       this.data = result;
-      let obj = JSON.parse(this.data._body);
-      console.log(this.data._body);
-            
+      let obj = JSON.parse(this.data._body);            
       this.navCtrl.setRoot(QuestsPage);
       this.presentToast("¡Actividad completada!");
-    
     }, (err) => {
       this.navCtrl.setRoot(CameraPage);
       this.presentToastError("Error en la actividad. Introduzca todos los datos correctamente");
@@ -149,6 +195,4 @@ export class CameraPage {
   }
 
   */
- 
-
 }

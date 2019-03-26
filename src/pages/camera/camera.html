@@ -31,15 +31,18 @@
             <ion-icon range-right>10</ion-icon>
         </ion-range>
     </ion-item> 
-
-    <!--
     <ion-item>
         
-        <button ion-button full (click)="takePhoto()">
-            <ion-icon name="camera"></ion-icon> &nbsp;&nbsp; Tomar foto
+        <button ion-button full (click)="openCamera()">
+            <ion-icon name="camera"></ion-icon> &nbsp;&nbsp; openCamera
         </button>
-        
-        
+        <button ion-button full (click)="openGallery()">
+                <ion-icon name="camera"></ion-icon> &nbsp;&nbsp; openGallery
+            </button>
+            <img [src]="base64Image"/>
+            <button ion-button full (click)="uploadImage()">upload img</button>
+        </ion-item>
+          <!--
         <ion-grid>
             <ion-row>
                 <ion-col col-12 *ngFor="let photo of photos; let id = index">
@@ -54,7 +57,7 @@
     </ion-item> -->
 
     <ion-item>
-        <button ion-button full (click)="sendInfo(temperatura,dolorPierna,dolorEspalda)">
+        <button ion-button full (click)="sendInfo(temperatura, dolorPierna, dolorEspalda, image)">
             <ion-icon></ion-icon> Enviar
         </button>
     </ion-item>
@@ -65,7 +68,7 @@
     <ion-item>
         <p>{{imageURI}}</p>
         <button ion-button color="secondary" (click)="getImage()">Get Image</button>
-    </ion-item>
+    </ion-item> 
     <ion-item>
         <h4>Image Preview</h4>
         <img src="{{imageFileName}}" *ngIf="imageFileName" alt="Ionic File" width="300" />
