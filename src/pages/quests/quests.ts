@@ -17,50 +17,64 @@ export class QuestsPage {
   finishedW: boolean = false;
   data: any;
   userData = { email:''};
-  seguimiento: String = null;
+  seguimientoWountrack: String = null;
+  seguimientoQuestionaires: String = null;
+
+  userQuestionnaire: Array<String>;
+  userProtocols: Array<String>;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public authService: AuthService,  private toastCtrl: ToastController) {
     this.userData.email = localStorage.getItem('email');
   }
 
   ionViewDidLoad() {
-    console.log(this.userData);
     this.authService.getIfTrack(this.userData).then((result) => {
       this.data = result;
       let obj = JSON.parse(this.data._body);
-      this.seguimiento = obj.result;
-      console.log(this.seguimiento);
+      this.seguimientoWountrack = obj.content;
     });
   }
 
   ionViewDidEnter() {
-    console.log(this.userData);
     this.authService.getIfTrack(this.userData).then((result) => {
       this.data = result;
       let obj = JSON.parse(this.data._body);
-      this.seguimiento = obj.result;
-      console.log(this.seguimiento);
+      this.seguimientoWountrack = obj.content;
     });
   }
-
-  goQuestionnaire(){
-
-    this.authService.getQuestions().then((result) => {
+  ionViewWillEnter(){
+    this.authService.getQuestionnaire(this.userData.email).then((result) => {
+      this.data = result;
+      if(JSON.parse(this.data._body).length === 0){
+        this.seguimientoQuestionaires = "noAction";
+      }else{
+        this.seguimientoQuestionaires = "action";
+      }
+      this.userQuestionnaire = JSON.parse(this.data._body);
+    });
+  }
+  
+  goQuestionnaire(questionnaire){
+    let questionAndAnswers : any [] = [];
+    this.authService.getQuestions(questionnaire).then((result) => {
       this.data = result;
       let obj = JSON.parse(this.data._body);
-      console.log(this.data._body);
-      for (let i = 0; i < obj.length; i++) {
-        console.log("Pregunta: " + obj[i][0]);
-        for (let j = 1; j < 7; j++) {
-          console.log("Respuesta: " + obj[i][j]);
+     obj.forEach(function(tupla,index){
+      let object : any = {};
+      object.answers = [];
+      object.question = tupla.pregunta;
+      var size = Object.keys(tupla).length;
+        for (let i = 0; i < size -1 ; i++) {
+          object.answers[i] = tupla[i];
         }
-      }
-      
+      questionAndAnswers.push(object);
+     });
       this.navCtrl.setRoot(QuestionnairePage, {
         questions: obj,
-        emailUser: localStorage.getItem("email")
+        emailUser: localStorage.getItem("email"),
+        questionnaireName: questionnaire,
+        questionAndAnswers: questionAndAnswers,
       });
-    
     }, (err) => {
       this.navCtrl.setRoot(CameraPage);
     });
@@ -85,7 +99,7 @@ export class QuestsPage {
     toast.present();
   }
   presentToastError(msg) {
-    let toast = this.toastCtrl.create({
+    this.toastCtrl.create({
       message: msg,
       duration: 4000,
       position: 'bottom',
@@ -97,7 +111,7 @@ logout(){
   .then(data => {
     this.data = data;
     console.log(this.data._body);
-    if(this.data._body=="{\"result\":200,\"listUsers\":null}"){
+    if(this.data._body.result == 200){
       localStorage.clear();
       this.navCtrl.setRoot(LoginPage);
       this.presentToast("Sesión finalizada correctamente.");

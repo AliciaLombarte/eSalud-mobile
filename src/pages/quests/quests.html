@@ -2,30 +2,34 @@
 
   <ion-navbar>
     <br>
-    <ion-title>Actividades: <ion-datetime displayFormat="DD de MMMM de YYYY" [(ngModel)]="myDate"></ion-datetime></ion-title>
-    <button ion-button (click)= "logout()">
-        <ion-icon name="log-out"> Logout</ion-icon>
-      </button>
+    <ion-title>Actividades: <ion-datetime displayFormat="DD de MMMM de YYYY" [(ngModel)]="myDate"></ion-datetime>
+    </ion-title>
+    <button ion-button (click)="logout()">
+      <ion-icon name="log-out"> Logout</ion-icon>
+    </button>
   </ion-navbar>
 
 </ion-header>
 
 <ion-content padding>
-  <ion-item *ngIf="seguimiento == 400">
-      <p>Actividad prioritaria:</p>
-      <br>
-      <button ion-button full default (click)="woundTracking()"> Seguimiento herida</button>
-      <br>
-    </ion-item>
-    
-    <ion-item *ngIf="seguimiento != 201">
-        <p>Cuestionarios pendientes:</p>
-        <br>
-        <button ion-button full default (click)="goQuestionnaire()">
-          <ion-icon></ion-icon> Cuestionario Oswestry
-        </button>
-    </ion-item>
+  <ion-item *ngIf="seguimientoWountrack == 'doWountrack'">
+    <p>Actividad prioritaria:</p>
+    <br>
+    <button ion-button full default (click)="woundTracking()"> Seguimiento herida</button>
+    <br>
+  </ion-item>
 
-    <ion-label *ngIf="seguimiento == 201"> No hay actividades para realizar</ion-label>
+  <ion-item *ngIf="seguimientoQuestionaires == 'action'">
+    <p>Cuestionarios pendientes:</p>
+    <br>
+    <ion-list no-lines radio-group>
+        <ion-item text-wrap *ngFor="let Cuestionario of userQuestionnaire; let i = index;">
+          <button ion-button full default (click)="goQuestionnaire(Cuestionario)">
+            <ion-icon></ion-icon> Cuestionario {{Cuestionario}}
+          </button> </ion-item>
+      </ion-list>
+  </ion-item>
+
+  <ion-label *ngIf="seguimientoQuestionaires == 'noAction'"> No hay actividades para realizar</ion-label>
 
 </ion-content>

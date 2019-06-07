@@ -1,16 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController, AlertController, ActionSheetController, ToastController, Platform, LoadingController, Loading } from 'ionic-angular';
-import { File } from '@ionic-native/file';
-import { Transfer, TransferObject, FileUploadOptions } from '@ionic-native/transfer';
-import { FilePath } from '@ionic-native/file-path';
+import { NavController, AlertController, ActionSheetController, ToastController, Platform, LoadingController} from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
-
 import { QuestsPage } from '../quests/quests';
 import { AuthService } from '../../providers/auth-service/auth-service';
-import { QuestionnairePage } from '../questionnaire/questionnaire';
-import { ImagePage } from '../image/image';
-
-declare var cordova: any;
 
 @Component({
   selector: 'page-camera',
@@ -20,6 +12,9 @@ export class CameraPage {
 
   public photos: any;
   public base64Image: string;
+
+  image: string = null;
+
   lastImage: string = null;
   urlImage: string = null;
 
@@ -27,21 +22,36 @@ export class CameraPage {
   data: any;
   photo: any;
 
-  userData = { temperatura:'', dolorPierna:'', dolorEspalda:'', emailUser:'', photo:'', score: 0};
+  userData = { temperatura:'', dolorPierna:'', dolorEspalda:'', emailUser:'', photo:'', fileName:'', score: 0};
 
   imageURI:any;
-  imageFileName:any;
+  imageFileName:string;
+  
+  constructor(public navCtrl: NavController, private camera: Camera,public actionSheetCtrl: ActionSheetController, public toastCtrl: ToastController, 
+    public platform: Platform, public loadingCtrl: LoadingController, private alertCtrl: AlertController, 
+    public authService: AuthService, ) { }
+ 
+  openGallery(){
+    console.log("open gallery");
 
-  constructor(public navCtrl: NavController, private camera: Camera, private transfer: Transfer, private file: File, 
-    private filePath: FilePath, public actionSheetCtrl: ActionSheetController, public toastCtrl: ToastController, 
-    public platform: Platform, public loadingCtrl: LoadingController, private alertCtrl: AlertController, public authService: AuthService) { }
+    const options : CameraOptions = {
+      quality : 100,
+      destinationType : this.camera.DestinationType.DATA_URL,
+      encodingType : this.camera.EncodingType.JPEG,
+      mediaType : this.camera.MediaType.PICTURE,
+      sourceType : this.camera.PictureSourceType.PHOTOLIBRARY
+    }
+    this.camera.getPicture(options).then((ImageData) => {
+      this.imageFileName = localStorage.getItem("email");
+      this.base64Image = `data:image/jpeg;base64,${ImageData}`;
+    }, (err) => {
+      this.presentToast('Error while selecting image.');
+      console.log(err);
+    });
+  }
 
   ngOnInit() {
     this.photos = [];
-  }
-
-  takePhoto(){
-    this.navCtrl.setRoot(ImagePage);
   }
 
   deletePhoto(index) {
@@ -71,21 +81,22 @@ export class CameraPage {
     this.userData.dolorPierna = dolorPierna;
     this.userData.dolorEspalda = dolorEspalda;
     this.userData.temperatura = temperatura;
+    this.userData.photo = this.base64Image;
+    this.userData.fileName = this.imageFileName;
     this.userData.emailUser= localStorage.getItem("email");
-
-    //this.uploadImage();
-
     this.authService.postInfo(this.userData).then((result) => {
       this.data = result;
-      let obj = JSON.parse(this.data._body);
-      console.log(this.data._body);
-            
-      this.navCtrl.setRoot(QuestsPage);
-      this.presentToast("¡Actividad completada!");
-    
+      let response = JSON.parse(this.data._body);
+      if (response.result == 200) {
+        this.navCtrl.setRoot(QuestsPage);
+        this.presentToast("¡Actividad completada!");
+      } else{
+        this.presentToastError("Error en la actividad. Introduzca todos los datos correctamente");
+        this.navCtrl.setRoot(CameraPage);
+      }
     }, (err) => {
       this.navCtrl.setRoot(CameraPage);
-      this.presentToastError("Error en la actividad. Introduzca todos los datos correctamente");
+      this.presentToastError("Error en la actividad");
     });
   }
 
@@ -119,36 +130,19 @@ export class CameraPage {
     toast.present();
   }
 
-/*
-  uploadFile() {
-    let loader = this.loadingCtrl.create({
-      content: "Uploading..."
-    });
-    loader.present();
-    const fileTransfer: TransferObject = this.transfer.create();
-  
-    let options: FileUploadOptions = {
-      fileKey: 'ionicfile',
-      fileName: 'ionicfile',
-      chunkedMode: false,
-      mimeType: "image/jpeg",
-      headers: {}
+  getPicture(){
+    let options: CameraOptions = {
+      destinationType: this.camera.DestinationType.DATA_URL,
+      targetWidth: 1000,
+      targetHeight: 1000,
+      quality: 100
     }
-  
-    fileTransfer.upload(this.imageURI, 'http://192.168.64.2:8080/upload.php', options)
-      .then((data) => {
-      console.log(data+" Uploaded Successfully");
-      this.imageFileName = "ionicfile.jpg"
-      loader.dismiss();
-      this.presentToast("Image uploaded successfully");
-    }, (err) => {
-      console.log(err);
-      loader.dismiss();
-      this.presentToast(err);
+    this.camera.getPicture( options )
+    .then(imageData => {
+      this.image = `data:image/jpeg;base64,${imageData}`;
+    })
+    .catch(error =>{
+      console.error( error );
     });
   }
-
-  */
- 
-
 }

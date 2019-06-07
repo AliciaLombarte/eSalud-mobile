@@ -31,47 +31,20 @@
             <ion-icon range-right>10</ion-icon>
         </ion-range>
     </ion-item> 
-
-    <!--
-    <ion-item>
-        
-        <button ion-button full (click)="takePhoto()">
-            <ion-icon name="camera"></ion-icon> &nbsp;&nbsp; Tomar foto
-        </button>
-        
-        
-        <ion-grid>
-            <ion-row>
-                <ion-col col-12 *ngFor="let photo of photos; let id = index">
-                    <ion-card class="block">
-                        <ion-icon ios="ios-close-circle" md="md-close-circle" class="deleteIcon" (click)="deletePhoto(id)"></ion-icon>
-                        <img [src]="photo" *ngIf="photo" />
-                    </ion-card>
-                </ion-col>
-            </ion-row>
-        </ion-grid>
-        
-    </ion-item> -->
+    <ion-item>  
+            <button ion-button block (click)="getPicture()">Toma una foto</button>
+            <img [src]="image" *ngIf="image" />
+  
+        <button ion-button block (click)="openGallery()">
+                <ion-icon name="camera"></ion-icon> &nbsp;&nbsp; openGallery
+            </button>
+            <img [src]="base64Image" *ngIf="base64Image" />
+        </ion-item>
 
     <ion-item>
-        <button ion-button full (click)="sendInfo(temperatura,dolorPierna,dolorEspalda)">
+        <button ion-button block (click)="sendInfo(temperatura, dolorPierna, dolorEspalda, image)">
             <ion-icon></ion-icon> Enviar
         </button>
     </ion-item>
 
 </ion-content>
-<!--
-<ion-content padding>
-    <ion-item>
-        <p>{{imageURI}}</p>
-        <button ion-button color="secondary" (click)="getImage()">Get Image</button>
-    </ion-item>
-    <ion-item>
-        <h4>Image Preview</h4>
-        <img src="{{imageFileName}}" *ngIf="imageFileName" alt="Ionic File" width="300" />
-    </ion-item>
-    <ion-item>
-        <button ion-button (click)="uploadFile()">Upload</button>
-    </ion-item>
-</ion-content>
--->
