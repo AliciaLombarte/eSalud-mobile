@@ -45,7 +45,10 @@
       "id": "cordova-plugin-camera@^3.0.0"
     },
     "is_top_level": true,
-    "variables": {}
+    "variables": {
+      "CAMERA_USAGE_DESCRIPTION": "the app need the camera",
+      "PHOTOLIBRARY_USAGE_DESCRIPTION": "the app need the photolibrary"
+    }
   },
   "cordova-plugin-file": {
     "source": {
@@ -75,6 +78,14 @@
     "source": {
       "type": "registry",
       "id": "cordova-plugin-email-composer"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-app-version": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-app-version"
     },
     "is_top_level": true,
     "variables": {}

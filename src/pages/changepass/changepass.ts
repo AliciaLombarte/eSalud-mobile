@@ -31,7 +31,7 @@ export class ChangepassPage {
       .then(data => {
         this.data = data;
         console.log(this.data._body);
-        if(this.data._body=="{\"result\":200,\"listUsers\":null}"){
+        if(this.data._body.result == 200){
           this.navCtrl.setRoot(LoginPage);
         } else{
           this.navCtrl.setRoot(ChangepassPage);

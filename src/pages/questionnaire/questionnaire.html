@@ -1,12 +1,10 @@
-
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Cuestionario Oswestry</ion-title>
+    <ion-title>Cuestionario {{questionnaireName}}</ion-title>
   </ion-navbar>
 
 </ion-header>
-
 
 <ion-content padding>
 
@@ -16,23 +14,16 @@
           <h4>El siguiente cuestionario sirve para conocer su situación actual frente a la operación</h4>
           <button ion-button color="primary" (click)="firstSlide()">¡Empezar!</button>
       </ion-slide>
-
-      <ion-slide class="start-slide" *ngFor="let question of allQuestions; let i = index;">
-
-          <h4>Pregunta {{i+1}} de {{allQuestions.length}}</h4>
-          <h4>{{allQuestions[i][0]}}</h4>
-
+  
+      <ion-slide class="start-slide" *ngFor="let question of questionnaireAnswers; let i = index;">
+          <h4>Pregunta {{i+1}} de {{questionnaireAnswers.length}}</h4>
+          <h4>{{question.question}}</h4>
           <ion-list no-lines radio-group>
-
-              <ion-item text-wrap *ngFor="let answer of allQuestions | slice:0:(6) ; let j = index;">
-
-                  <ion-label class="answers">{{j}}. {{allQuestions[i][j+1]}}</ion-label>
-                  <ion-radio (click)="selectAnswer(j)" [checked]="answer.selected" [disabled]="hasAnswered"></ion-radio>
-
+              <ion-item text-wrap *ngFor="let set of question.answers ; let j = index;">
+                <ion-label class="answers">{{j+1}}. {{set}} </ion-label>
+                  <ion-radio (click)="selectAnswer(j)"  [disabled]="hasAnswered"></ion-radio>
               </ion-item>
-
           </ion-list>
-
           <div *ngIf="i == 0">
             <button class="botonCuestionario" ion-button color="primary" (click)="nextSlide()">Siguiente</button>
           </div>
@@ -40,13 +31,10 @@
             <button class="botonCuestionario" ion-button color="primary" (click)="prevSlide()">Anterior</button>
             <button class="botonCuestionario" ion-button color="primary" (click)="nextSlide()">Siguiente</button>
           </div>
-         
-
       </ion-slide>
 
       <ion-slide class="finish-slide">
           <h4>El cuestionario ha sido completado con éxito</h4>
-
           <button (click)="goToMenu()" ion-button color="primary">Terminar</button>
 
       </ion-slide>

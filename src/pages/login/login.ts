@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, LoadingController, ToastController } from 'ionic-angular';
 import { AuthService } from '../../providers/auth-service/auth-service';
-//import { CameraPage } from '../camera/camera';
 import { QuestsPage } from '../quests/quests';
 import { ChangepassPage } from '../changepass/changepass';
 
@@ -25,7 +24,8 @@ export class LoginPage {
     this.authService.login(this.loginData)
     .then(data => {
       this.data = data;
-      if(this.data._body=="{\"result\":200,\"listUsers\":null}"){
+      let response = JSON.parse(this.data._body);
+      if(response.result == 200){
         localStorage.setItem('email', email);
         this.navCtrl.setRoot(QuestsPage);
         this.presentToast("¡Inicio de sesión correcto!");

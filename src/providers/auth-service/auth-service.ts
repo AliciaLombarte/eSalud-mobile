@@ -1,17 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
-import { Observable } from 'rxjs/Observable';
-import { resolveDefinition } from '@angular/core/src/view/util';
 
-//let apiUrl = 'http://163.117.247.172:8081/';
-//let apiUrl = 'http://192.168.1.41:8081/';
+
 let apiUrl = 'http://localhost:8081/';
-//let apiUrl = 'http://192.168.1.42:8081/';
 
 @Injectable()
 export class AuthService {
-
+  
   result: any = null;
   public base64Image: string;
 
@@ -31,7 +27,6 @@ export class AuthService {
   }
 
   logout() {
-    console.log('AuthService logout');
     return new Promise((resolve, reject) => {
       let headers = new Headers();
       headers.append('X-Auth-Token', localStorage.getItem('token'));
@@ -45,26 +40,24 @@ export class AuthService {
   }
 
   postInfo(userData) {
-    console.log('userDatssssa');
     return new Promise((resolve, reject) => {
       let headers = new Headers();
       headers.append('Content-Type', 'application/json');
-      console.log(JSON.stringify(userData));
       this.http.post(apiUrl + 'woundInfo', JSON.stringify(userData), { headers: headers })
         .subscribe(res => {
+          console.log(res);
           resolve(res);
         }, (err) => {
+          console.log(err);
           reject(err);
         });
     });
   }
 
   uploadImage(img) {
-    console.log('uploadImage service');
     return new Promise((resolve, reject) => {
       let postData = new FormData();
       postData.append('file', this.base64Image);
-      console.log(img);
       this.http.post(apiUrl + 'woundInfo', img)
         .subscribe(res => {
           resolve(res);
@@ -74,12 +67,11 @@ export class AuthService {
     });
   }
 
-  postResultQuest(userData) {
-    console.log(userData);
+  postResultQuest(userData) { 
     return new Promise((resolve, reject) => {
       let headers = new Headers();
       headers.append('Content-Type', 'application/json');
-      this.http.put(apiUrl + 'resultQuest', JSON.stringify(userData), { headers: headers })
+      this.http.post(apiUrl + 'resultQuest', JSON.stringify(userData), { headers: headers })
         .subscribe(res => {
           resolve(res);
         }, (err) => {
@@ -88,10 +80,23 @@ export class AuthService {
     });
   }
 
-  getQuestions() {
+  getQuestions(protocol) {
     return new Promise((resolve, reject) => {
       let headers = new Headers();
-      this.http.get(apiUrl + 'questions', { headers: headers })
+      this.http.get(apiUrl + 'questions?protocolo=' + protocol,  { headers: headers })
+        .subscribe(res => {
+          resolve(res);
+        }, (err) => {
+          reject(err);
+        });
+    });
+  }
+
+  getQuestionnaire(email){
+    return new Promise((resolve, reject) => {
+      let headers = new Headers();
+      headers.append('Content-Type', 'application/json');
+      this.http.get(apiUrl + 'userQuestionnaire?email=' + email, { headers: headers })
         .subscribe(res => {
           resolve(res);
         }, (err) => {
@@ -114,7 +119,6 @@ export class AuthService {
   }
 
   getIfTrack(userData) {
-    console.log(userData)
     return new Promise((resolve, reject) => {
       let headers = new Headers();
       headers.append('Content-Type', 'application/json');
@@ -126,19 +130,5 @@ export class AuthService {
         });
     });
   }
-  /*
-    register(data) {
-      return new Promise((resolve, reject) => {
-          let headers = new Headers();
-          headers.append('Content-Type', 'application/json');
-  
-          this.http.post(apiUrl+'signup', JSON.stringify(data), {headers: headers})
-            .subscribe(res => {
-              resolve(res.json());
-            }, (err) => {
-              reject(err);
-            });
-      });
-    }
-   */
+
 }

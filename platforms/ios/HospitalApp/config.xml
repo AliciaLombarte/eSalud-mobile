@@ -46,6 +46,9 @@
     <feature name="Keyboard">
         <param name="ios-package" onload="true" value="IonicKeyboard" />
     </feature>
+    <feature name="AppVersion">
+        <param name="ios-package" value="AppVersion" />
+    </feature>
     <name>HospitalApp</name>
     <description>Aplicación para comunicar a los médicos la evolución de una operación</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>

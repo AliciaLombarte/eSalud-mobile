@@ -3,13 +3,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { HttpModule } from '@angular/http';
 import { MyApp } from './app.component';
+import { HttpClientModule } from '@angular/common/http';
 
 import { LoginPage } from '../pages/login/login';
 import { CameraPage } from '../pages/camera/camera';
 import { QuestsPage } from '../pages/quests/quests';
 import { QuestionnairePage } from '../pages/questionnaire/questionnaire';
 import { ChangepassPage } from '../pages/changepass/changepass';
-import { ImagePage } from '../pages/image/image';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -28,10 +28,10 @@ import { Data } from '../providers/data/data';
     CameraPage,
     QuestsPage,
     QuestionnairePage,
-    ChangepassPage,
-    ImagePage
+    ChangepassPage
   ],
   imports: [
+    HttpClientModule,
     BrowserModule,
     IonicModule.forRoot(MyApp, {
       monthNames: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"]
@@ -45,9 +45,8 @@ import { Data } from '../providers/data/data';
     CameraPage,
     QuestsPage,
     QuestionnairePage,
-    ChangepassPage,
-    ImagePage
-  ],
+    ChangepassPage
+ ],
   providers: [
     StatusBar,
     SplashScreen,
@@ -56,7 +55,6 @@ import { Data } from '../providers/data/data';
     File,
     Transfer,
     FilePath,
-    Camera,
     Camera,
     Data,
     EmailComposer
