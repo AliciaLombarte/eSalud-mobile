@@ -33,7 +33,6 @@ export class CameraPage {
  
   openGallery(){
     console.log("open gallery");
-
     const options : CameraOptions = {
       quality : 100,
       destinationType : this.camera.DestinationType.DATA_URL,

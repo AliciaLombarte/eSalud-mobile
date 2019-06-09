@@ -14,11 +14,10 @@ import { ChangepassPage } from '../pages/changepass/changepass';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { AuthService } from '../providers/auth-service/auth-service';
-import { File } from '@ionic-native/file';
-import { Transfer } from '@ionic-native/transfer';
-import { FilePath } from '@ionic-native/file-path';
+import { File } from '@ionic-native/file/ngx';
+import { FilePath } from '@ionic-native/file-path/ngx';
 import { Camera } from '@ionic-native/camera';
-import { EmailComposer } from '@ionic-native/email-composer';
+import { EmailComposer } from '@ionic-native/email-composer/ngx';
 import { Data } from '../providers/data/data';
 
 @NgModule({
@@ -53,7 +52,6 @@ import { Data } from '../providers/data/data';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthService,
     File,
-    Transfer,
     FilePath,
     Camera,
     Data,

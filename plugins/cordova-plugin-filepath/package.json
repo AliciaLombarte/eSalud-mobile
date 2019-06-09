@@ -1,28 +1,27 @@
 {
-  "_from": "cordova-plugin-filepath@^1.5.1",
-  "_id": "cordova-plugin-filepath@1.5.1",
+  "_from": "cordova-plugin-filepath@1.5.5",
+  "_id": "cordova-plugin-filepath@1.5.5",
   "_inBundle": false,
-  "_integrity": "sha512-hmY5oc7TxHc3k6OHNdxqbMDLR2o8RKQ7Lnej4u4XIBqhZtg9xVbu585l+XVIky9uipqVB6qPR8t+SQPhSPsnEA==",
+  "_integrity": "sha512-C209x+b3zOWnNUUYJiwt9zMnx67ovP/DBBzVZyPvQ778mC+rAWJofJFDbGSOyqDb1v2QgEMxi65oAn6hUgBGlg==",
   "_location": "/cordova-plugin-filepath",
   "_phantomChildren": {},
   "_requested": {
-    "type": "range",
+    "type": "version",
     "registry": true,
-    "raw": "cordova-plugin-filepath@^1.5.1",
+    "raw": "cordova-plugin-filepath@1.5.5",
     "name": "cordova-plugin-filepath",
     "escapedName": "cordova-plugin-filepath",
-    "rawSpec": "^1.5.1",
+    "rawSpec": "1.5.5",
     "saveSpec": null,
-    "fetchSpec": "^1.5.1"
+    "fetchSpec": "1.5.5"
   },
   "_requiredBy": [
-    "#USER",
     "/"
   ],
-  "_resolved": "https://registry.npmjs.org/cordova-plugin-filepath/-/cordova-plugin-filepath-1.5.1.tgz",
-  "_shasum": "70ceed92f67ea4d5346214b272566c292a9ea473",
-  "_spec": "cordova-plugin-filepath@^1.5.1",
-  "_where": "/Users/alicialombarte/Documents/uc3m/TFG-II/app/e-salud",
+  "_resolved": "https://registry.npmjs.org/cordova-plugin-filepath/-/cordova-plugin-filepath-1.5.5.tgz",
+  "_shasum": "a57af2e68a4eabf092980cab8e6f29043644f688",
+  "_spec": "cordova-plugin-filepath@1.5.5",
+  "_where": "/Users/alicialombarte/coding",
   "author": {
     "name": "Ramesh Nair",
     "email": "ram@hiddentao.com"
@@ -58,5 +57,5 @@
   "scripts": {
     "version": "sync-cordova-xml package.json plugin.xml --output plugin.xml && git add plugin.xml"
   },
-  "version": "1.5.1"
+  "version": "1.5.5"
 }

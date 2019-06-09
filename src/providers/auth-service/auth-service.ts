@@ -2,12 +2,11 @@ import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
 
-
 let apiUrl = 'http://localhost:8081/';
 
 @Injectable()
 export class AuthService {
-  
+
   result: any = null;
   public base64Image: string;
 
@@ -67,7 +66,7 @@ export class AuthService {
     });
   }
 
-  postResultQuest(userData) { 
+  postResultQuest(userData) {
     return new Promise((resolve, reject) => {
       let headers = new Headers();
       headers.append('Content-Type', 'application/json');
@@ -83,7 +82,7 @@ export class AuthService {
   getQuestions(protocol) {
     return new Promise((resolve, reject) => {
       let headers = new Headers();
-      this.http.get(apiUrl + 'questions?protocolo=' + protocol,  { headers: headers })
+      this.http.get(apiUrl + 'questions?protocolo=' + protocol, { headers: headers })
         .subscribe(res => {
           resolve(res);
         }, (err) => {
@@ -92,7 +91,7 @@ export class AuthService {
     });
   }
 
-  getQuestionnaire(email){
+  getQuestionnaire(email) {
     return new Promise((resolve, reject) => {
       let headers = new Headers();
       headers.append('Content-Type', 'application/json');
