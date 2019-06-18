@@ -3,6 +3,7 @@ import { Http, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
 
 let apiUrl = 'http://localhost:8081/';
+// let apiUrl = 'http://10.0.3.2:8081/';
 
 @Injectable()
 export class AuthService {

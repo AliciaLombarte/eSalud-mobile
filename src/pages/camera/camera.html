@@ -32,11 +32,11 @@
         </ion-range>
     </ion-item> 
     <ion-item>  
-            <button ion-button block (click)="getPicture()">Toma una foto</button>
+            <button ion-button block (click)="getPicture()"><ion-icon name="camera"></ion-icon> &nbsp;&nbsp;Hacer foto nueva</button>
             <img [src]="image" *ngIf="image" />
   
         <button ion-button block (click)="openGallery()">
-                <ion-icon name="camera"></ion-icon> &nbsp;&nbsp; openGallery
+            <ion-icon name="folder"></ion-icon> &nbsp;&nbsp;Subir foto desde galeria
             </button>
             <img [src]="base64Image" *ngIf="base64Image" />
         </ion-item>

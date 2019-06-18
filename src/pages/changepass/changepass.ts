@@ -30,8 +30,8 @@ export class ChangepassPage {
       this.authService.changePass(this.changeData)
       .then(data => {
         this.data = data;
-        console.log(this.data._body);
-        if(this.data._body.result == 200){
+        let obj = JSON.parse(this.data._body);
+        if(obj.result == 200){
           this.navCtrl.setRoot(LoginPage);
         } else{
           this.navCtrl.setRoot(ChangepassPage);

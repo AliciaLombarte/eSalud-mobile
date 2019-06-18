@@ -110,8 +110,8 @@ logout(){
   this.authService.logout()
   .then(data => {
     this.data = data;
-    console.log(this.data._body);
-    if(this.data._body.result == 200){
+    let obj = JSON.parse(this.data._body);
+    if(obj.result == 200){
       localStorage.clear();
       this.navCtrl.setRoot(LoginPage);
       this.presentToast("Sesión finalizada correctamente.");

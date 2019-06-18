@@ -1,0 +1,5 @@
+drop database test_tfg;
+create database test_tfg;
+use test_tfg;
+source /Users/alicialombarte/Documents/uc3m/TFG-II/app/e-salud/esalud-db/esalud-schema.sql
+source /Users/alicialombarte/Documents/uc3m/TFG-II/app/e-salud/esalud-db/esalud-data.sql
